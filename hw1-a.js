@@ -1,0 +1,1 @@
+console.log('1.int ' + '2.for ' + '3.if ' + '4.var ' + '5.do ' + '6.while ' + '7.try ' + '8.catch ' + '9.new ' + '10.static');
