@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO LIST</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="top">
+        <h1>TO DO LIST</h1>
+        <input type="text" id="inputTxt" placeholder="請輸入待辦事項">
+        <button id="btnAdd">新增</button>
+    </div>
+    <div class="wrapper">
+        <div>
+            <table id="list"></table>
+        </div>
+    </div>
+
+
+
+</body>
+<script>
+    //按下新增鍵
+    let btnAdd = document.querySelector("#btnAdd");
+    btnAdd.addEventListener("click", addList);
+
+
+    //執行新增功能
+    function addList() {
+        if (document.querySelector("input").value != 0) {
+            let tr = document.createElement("tr");
+            let td = document.createElement("td");
+            let span = document.createElement("span");
+            td.setAttribute("class", "inputtd")
+            let inputTxt = document.querySelector("#inputTxt");
+            span.innerText = inputTxt.value;
+            td.setAttribute("width", "150px")
+            let tablelist = document.querySelector("#list");
+            tablelist.prepend(tr);
+            tr.prepend(td);
+            td.prepend(span);
+            inputTxt.value = "";
+
+            //新增刪除鍵
+            let delbtn = document.createElement("button");
+            let deltd = document.createElement("td");
+            delbtn.setAttribute("class", "delbtn");
+            delbtn.innerText = "刪除";
+            deltd.prepend(delbtn);
+            tr.append(deltd);
+
+            //執行刪除功能
+            delbtn.addEventListener("click", function () {
+                tr.remove();
+            });
+
+            //新增編輯鍵
+            let editbtn = document.createElement("button");
+            editbtn.setAttribute("class", "editbtn");
+            editbtn.innerText = "編輯";
+            deltd.prepend(editbtn);
+
+            //執行編輯功能
+            editbtn.addEventListener("click", function () {
+                if (editbtn.innerText == "編輯") {
+                    let input = document.createElement("input");
+                    let span = td.querySelector("span")
+                    input.value = span.innerText;
+                    span.remove();
+                    td.prepend(input);
+                    editbtn.innerText = "完成";
+                }
+                else {
+                    let span = document.createElement("span");
+                    let input = td.querySelector("input")
+                    span.innerText = input.value;
+                    input.remove();
+                    td.prepend(span);
+                    editbtn.innerText = "編輯";
+                }
+            })
+
+        }
+        else alert("請勿空白 ^_^")
+    }
+
+</script>
+
+</html>
