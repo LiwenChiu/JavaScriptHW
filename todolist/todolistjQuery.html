@@ -6,14 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TO DO LIST</title>
     <link rel="stylesheet" href="style.css">
-    <script src="/jquery-3.7.1.js"></script>
+    <script src="/todolist/jquery-3.7.1.min.js"></script>
+
 </head>
 
 <body>
     <div class="top">
         <h1>TO DO LIST</h1>
+        <button id="btnCheckedAll">全選</button>
         <input type="text" id="inputTxt" placeholder="請輸入待辦事項">
         <button id="btnAdd">新增</button>
+        <button id="btndelchecked">刪除已選取項目</button>
+
     </div>
     <div class="wrapper">
         <div>
@@ -35,58 +39,66 @@
     function addList() {
         if ($("input").val() != 0) {
             let tr = $("<tr></tr>");
-            let td = $("<td></td>");
+            let td = $("<td></td>").addClass("inputtd").css({ "width": "150px"});
             let span = $("<span></span>");
-            td.addClass("inputtd").css({"width":"150px"});
+            let checkbox = $("<input></input>").prop({ "type": "checkbox", "class": "cbx"});
+            let cbxtd = $("<td></td>")
             let inputTxt = $("#inputTxt");
             span.text(inputTxt.val());
             $("#list").append(tr);
-            tr.prepend(td);
+            tr.append(td).prepend(cbxtd);
+            cbxtd.append(checkbox);
             td.append(span);
             inputTxt.val("");
-        
 
+            //delecheckeditem
+            $("#btndelchecked").click(function(){
+                $(".cbx:checked").closest("tr").remove();
+            })
 
-        //新增刪除鍵
-        let delbtn = $("<button></button>");
-        let deltd = $("<td></td>");
-        delbtn.addClass("delbtn");
-        delbtn.text("刪除");
-        deltd.prepend(delbtn);
-        tr.append(deltd);
+            //btncheckedAll
+            $("#btnCheckedAll").click(function(){
+                $(".cbx").prop("checked",true)
+            })
+            
+            //新增刪除鍵
+            let delbtn = $("<button></button>");
+            let deltd = $("<td></td>");
+            delbtn.addClass("delbtn");
+            delbtn.text("刪除");
+            deltd.prepend(delbtn);
+            tr.append(deltd);
 
-        //執行刪除功能
-        delbtn.click(function () {
-            tr.remove();
-        });
+            //執行刪除功能
+            delbtn.click(function () {
+                tr.remove();
+            });
 
-        //新增編輯鍵
-        let editbtn = $("<button></button>");
-        editbtn.addClass("editbtn");
-        editbtn.text("編輯");
-        deltd.prepend(editbtn);
+            //新增編輯鍵
+            let editbtn = $("<button></button>");
+            editbtn.addClass("editbtn");
+            editbtn.text("編輯");
+            deltd.prepend(editbtn);
 
-        //執行編輯功能
-        editbtn.click(function () {
-            if (editbtn.text() == "編輯") {
-                let input = $("<input></input>");
-                let span = $(this).closest("tr").find("span");
-                input.val(span.text());
-                span.remove();
-                td.prepend(input);
-                editbtn.text("完成");
-            }
-            else {
-                let input = $(this).closest("tr").find("input");
-                span.text(input.val());
-                input.remove();
-                td.prepend(span);
-                editbtn.text("編輯");
-            }
-
-        })
-
-    }
+            //執行編輯功能
+            editbtn.click(function () {
+                if (editbtn.text() == "編輯") {
+                    let input = $("<input></input>");
+                    let span = $(this).closest("tr").find("span");
+                    input.val(span.text());
+                    span.remove();
+                    td.prepend(input);
+                    editbtn.text("完成");
+                }
+                else {
+                    let input = $(this).closest("tr").find("input");
+                    span.text(input.val());
+                    input.remove();
+                    td.prepend(span);
+                    editbtn.text("編輯");
+                }
+            })
+        }
         else alert("請勿空白 ^_^")
     }
 
