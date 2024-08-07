@@ -88,16 +88,13 @@
                     spanEdit.remove();
                     td.prepend(input);
                     editbtn.text("完成");
-                    alert(input.val())
                 }
                 else {
                     let input = $(this).closest("tr").find("input[type=text]");
-                    alert(input.val())
                     span.text(input.val());
                     input.remove();
                     td.prepend(span);
                     editbtn.text("編輯");
-                    alert(span.val())
                 }
             })
         }
