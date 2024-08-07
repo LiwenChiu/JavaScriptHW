@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO LIST</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="/jquery-3.7.1.js"></script>
+</head>
+
+<body>
+    <div class="top">
+        <h1>TO DO LIST</h1>
+        <input type="text" id="inputTxt" placeholder="請輸入待辦事項">
+        <button id="btnAdd">新增</button>
+    </div>
+    <div class="wrapper">
+        <div>
+            <table id="list"></table>
+        </div>
+    </div>
+
+
+
+</body>
+<script>
+    //按下新增鍵
+    $("#btnAdd").click(function () {
+        addList();
+    });
+
+
+    //執行新增功能
+    function addList() {
+        if ($("input").val() != 0) {
+            let tr = $("<tr></tr>");
+            let td = $("<td></td>");
+            let span = $("<span></span>");
+            td.addClass("inputtd").css({"width":"150px"});
+            let inputTxt = $("#inputTxt");
+            span.text(inputTxt.val());
+            $("#list").append(tr);
+            tr.prepend(td);
+            td.append(span);
+            inputTxt.val("");
+        
+
+
+        //新增刪除鍵
+        let delbtn = $("<button></button>");
+        let deltd = $("<td></td>");
+        delbtn.addClass("delbtn");
+        delbtn.text("刪除");
+        deltd.prepend(delbtn);
+        tr.append(deltd);
+
+        //執行刪除功能
+        delbtn.click(function () {
+            tr.remove();
+        });
+
+        //新增編輯鍵
+        let editbtn = $("<button></button>");
+        editbtn.addClass("editbtn");
+        editbtn.text("編輯");
+        deltd.prepend(editbtn);
+
+        //執行編輯功能
+        editbtn.click(function () {
+            if (editbtn.text() == "編輯") {
+                let input = $("<input></input>");
+                let span = $(this).closest("tr").find("span");
+                input.val(span.text());
+                span.remove();
+                td.prepend(input);
+                editbtn.text("完成");
+            }
+            else {
+                let input = $(this).closest("tr").find("input");
+                span.text(input.val());
+                input.remove();
+                td.prepend(span);
+                editbtn.text("編輯");
+            }
+
+        })
+
+    }
+        else alert("請勿空白 ^_^")
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,12 @@
+.top {
+    text-align: center;
+}
+
+.wrapper {
+    display: table;
+    margin: 0 auto;
+}
+
+#list{
+    margin-top: 20px;
+}
