@@ -39,9 +39,9 @@
     function addList() {
         if ($("input").val() != 0) {
             let tr = $("<tr></tr>");
-            let td = $("<td></td>").addClass("inputtd").css({ "width": "150px"});
+            let td = $("<td></td>").addClass("inputtd").css({ "width": "150px" });
             let span = $("<span></span>");
-            let checkbox = $("<input></input>").prop({ "type": "checkbox", "class": "cbx"});
+            let checkbox = $("<input></input>").prop({ "type": "checkbox", "class": "cbx" });
             let cbxtd = $("<td></td>")
             let inputTxt = $("#inputTxt");
             span.text(inputTxt.val());
@@ -51,16 +51,16 @@
             td.append(span);
             inputTxt.val("");
 
-            //delecheckeditem
-            $("#btndelchecked").click(function(){
+            //刪除選取項目
+            $("#btndelchecked").click(function () {
                 $(".cbx:checked").closest("tr").remove();
             })
 
-            //btncheckedAll
-            $("#btnCheckedAll").click(function(){
-                $(".cbx").prop("checked",true)
+            //全選
+            $("#btnCheckedAll").click(function () {
+                $(".cbx").prop("checked", true)
             })
-            
+
             //新增刪除鍵
             let delbtn = $("<button></button>");
             let deltd = $("<td></td>");
@@ -75,27 +75,29 @@
             });
 
             //新增編輯鍵
-            let editbtn = $("<button></button>");
-            editbtn.addClass("editbtn");
-            editbtn.text("編輯");
+            let editbtn = $("<button></button>").addClass("editbtn").text("編輯");
             deltd.prepend(editbtn);
 
             //執行編輯功能
             editbtn.click(function () {
+
                 if (editbtn.text() == "編輯") {
-                    let input = $("<input></input>");
-                    let span = $(this).closest("tr").find("span");
-                    input.val(span.text());
-                    span.remove();
+                    let input = $("<input></input>").attr("type", "text");
+                    let spanEdit = $(this).closest("tr").find("span");
+                    input.val(spanEdit.text());
+                    spanEdit.remove();
                     td.prepend(input);
                     editbtn.text("完成");
+                    alert(input.val())
                 }
                 else {
-                    let input = $(this).closest("tr").find("input");
+                    let input = $(this).closest("tr").find("input[type=text]");
+                    alert(input.val())
                     span.text(input.val());
                     input.remove();
                     td.prepend(span);
                     editbtn.text("編輯");
+                    alert(span.val())
                 }
             })
         }
